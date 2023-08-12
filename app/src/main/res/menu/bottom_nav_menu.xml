@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/inventoryFragment"
+        android:icon="@drawable/icon_archive"
+        android:title="@string/name_fragment_inventory" />
+    <item
+        android:id="@+id/salesPurchaseFragment"
+        android:icon="@drawable/icon_dollar"
+        android:title="@string/name_fragment_sales_purchase" />
+    <item
+        android:id="@+id/accountingFragment"
+        android:icon="@drawable/icon_accounting"
+        android:title="@string/name_fragment_accounting" />
+    <item
+        android:id="@+id/clientsSuppliersFragment"
+        android:icon="@drawable/icon_users"
+        android:title="@string/name_fragment_clients_suppliers" />
+</menu>

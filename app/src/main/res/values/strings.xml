@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Foodie</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Strings of Login-->
+    <string name="name_image_background">Fondo de pantalla Foodie</string>
+    <string name="edit_text_password">Contraseña</string>
+    <string name="edit_text_user">Usuario</string>
+    <string name="checkbox_remember_user">Mantener sesión iniciada.</string>
+
+    <!--Strings of Fragments Navigation-->
+    <string name="name_fragment_inventory">Inventario</string>
+    <string name="name_fragment_sales_purchase">Ventas/Compras</string>
+    <string name="name_fragment_accounting">Contabilidad</string>
+    <string name="name_fragment_clients_suppliers">Clientes/Proveedores</string>
+    <string name="name_image_background_frag">Fondo Fragmento</string>
+
+    <!--Strings Toolbar-->
+    <string name="logout_toolbar">Cerrar sesión</string>
+    <string name="logo_toolbar">Name Toolbar</string>
+
+    <!-- Dialog Alert -->
+    <string name="alert_dialog_cargando">Cargando…</string>
+    <string name="alert_dialog_ok">Aceptar</string>
+
+    <!-- Strings Inventory -->
+    <string name="products">Productos</string>
+    <string name="mod_delete_prod">Mod/Elim. prod.</string>
+    <string name="btn_stock_raw_material">Stock mat. prima</string>
+    <string name="btn_stock_finished_product">Stock terminado</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="info_prod">Info.</string>
+    <string name="weekly">Semana</string>
+    <string name="principal_message_inventory">Inventario</string>
+    <string name="prod_create">Crear</string>
+    <string name="prod_mod">Modificar</string>
+    <string name="prod_delete">Eliminar</string>
+    <string name="inventory_overview">Descripción general del inventario</string>
+    <string name="items_sold">Prod. vendidos</string>
+    <string name="products_finished">Prod. terminados</string>
+
+    <!-- Strings Inventory Products -->
+    <string name="search_edittext">Buscar…</string>
+    <string name="name_product">Nombre producto</string>
+    <string name="desc_product">Descripción producto</string>
+    <string name="price_name">Precio:</string>
+    <string name="price_product">$ 9.999</string>
+</resources>

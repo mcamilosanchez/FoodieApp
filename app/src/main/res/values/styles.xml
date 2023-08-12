@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="MainButtonStyle" parent="">
+        <item name="android:background">@drawable/custom_main_btn_background</item>
+        <item name="backgroundTint">@color/orangeFoodie</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SecondaryButtonStyle" parent="">
+        <item name="android:background">@drawable/custom_main_btn_background</item>
+        <item name="backgroundTint">@color/lightGreenFoodie</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>
