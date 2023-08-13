@@ -46,4 +46,6 @@
     <string name="desc_product">Descripción producto</string>
     <string name="price_name">Precio:</string>
     <string name="price_product">$ 9.999</string>
+    <string name="btn_edit">Modificar</string>
+    <string name="btn_delete">Eliminar</string>
 </resources>
