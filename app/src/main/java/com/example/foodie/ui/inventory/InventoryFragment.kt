@@ -1,5 +1,6 @@
 package com.example.foodie.ui.inventory
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,7 +30,8 @@ class InventoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lCProducts.setOnClickListener {
-            findNavController().navigate(R.id.action_inventoryFragment_to_inventoryProductsFragment)
+            //findNavController().navigate(R.id.action_inventoryFragment_to_inventoryProductsFragment)
+            startActivity(Intent(requireContext(), ProductActivity::class.java))
         }
 
         binding.lCModDelProducts.setOnClickListener {
