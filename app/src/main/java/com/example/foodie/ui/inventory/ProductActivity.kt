@@ -1,6 +1,7 @@
 package com.example.foodie.ui.inventory
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import com.example.foodie.R
 import com.example.foodie.data.ListProductsResponse
 import com.example.foodie.data.Products
 import com.example.foodie.databinding.ActivityProductBinding
+import com.example.foodie.ui.login.LoginActivity
 
 class ProductActivity : AppCompatActivity() {
 
@@ -22,6 +24,12 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        val iBArrowBackButton = binding.iBArrowBackProduct
+        iBArrowBackButton.setOnClickListener {
+            finish()
+        }
+
         callProductList()
     }
 

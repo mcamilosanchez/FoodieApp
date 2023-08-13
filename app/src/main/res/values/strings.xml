@@ -18,6 +18,7 @@
     <!--Strings Toolbar-->
     <string name="logout_toolbar">Cerrar sesión</string>
     <string name="logo_toolbar">Name Toolbar</string>
+    <string name="logo_back_arrow">Arrow Back</string>
 
     <!-- Dialog Alert -->
     <string name="alert_dialog_cargando">Cargando…</string>
