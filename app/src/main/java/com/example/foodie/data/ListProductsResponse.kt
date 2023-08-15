@@ -30,7 +30,7 @@ data class ListProductsResponse(
     val status: Boolean,
 
     @SerializedName("productos")
-    val productos: List<Products>,
+    val productos: List<Products>?,
 
     @SerializedName("message")
     val message: String,

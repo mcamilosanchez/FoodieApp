@@ -37,14 +37,14 @@ class FragmentInventoryProducts : Fragment() {
         val confirmationDialogTitle = "Mensaje"
         //loadingDialog.showLoadingDialog()
 
-        viewModel.getListProducts { listProductsResponse: ListProductsResponse ->
-            if (listProductsResponse.status) {
-                val productList = listProductsResponse.productos
-                showProducts(productList)
-            } else {
-                Log.i("Product list:", listProductsResponse.message)
-            }
-        }
+//        viewModel.getListProducts { listProductsResponse: ListProductsResponse ->
+//            if (listProductsResponse.status) {
+//                val productList = listProductsResponse.productos
+//                showProducts(productList)
+//            } else {
+//                Log.i("Product list:", listProductsResponse.message)
+//            }
+//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

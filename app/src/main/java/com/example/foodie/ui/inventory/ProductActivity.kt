@@ -5,7 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodie.R
 import com.example.foodie.data.ListProductsResponse
@@ -34,14 +36,33 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun callProductList() {
-        viewModel.getListProducts { listProductsResponse: ListProductsResponse ->
-            if (listProductsResponse.status) {
-                val productList = listProductsResponse.productos
-                showProducts(productList)
-            } else {
-                Log.i("Product list:", listProductsResponse.message)
+        viewModel.getListProducts().observe(this, Observer {
+            when(it.message){
+                "loading" -> {
+                    Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+                }
+                "successfull" -> {
+                    it.productos?.let {
+                        showProducts(it)
+                    }
+                }
+                "error" -> {
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
+        })
+
+
+
+
+//        viewModel.getListProducts { listProductsResponse: ListProductsResponse ->
+//            if (listProductsResponse.status) {
+//                val productList = listProductsResponse.productos
+//                showProducts(productList)
+//            } else {
+//                Log.i("Product list:", listProductsResponse.message)
+//            }
+//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
