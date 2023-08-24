@@ -1,14 +1,11 @@
 package com.example.foodie.ui.inventory
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.foodie.data.ListProductsResponse
 import com.example.foodie.network.ApiService
+import com.example.foodie.utils.Resource
+import com.example.foodie.utils.Status
 import kotlinx.coroutines.launch
-import retrofit2.Callback
 
 class InventoryProductsViewModel : ViewModel(){
 
@@ -16,53 +13,27 @@ class InventoryProductsViewModel : ViewModel(){
      * de Retrofit.**/
     private var responseRetrofit: String = ""
 
-    val status: MutableLiveData<ListProductsResponse> =
-        MutableLiveData(ListProductsResponse(status = false, emptyList(), "loading"))
+    val status: MutableLiveData<Resource<ListProductsResponse>> =
+        MutableLiveData(Resource.loading(data = null))
 
-    fun getListProducts(): LiveData<ListProductsResponse> {
+    fun getListProducts(): LiveData<Resource<ListProductsResponse>> {
         viewModelScope.launch {
             try {
                 val response = ApiService.Api.retrofitService.getListProducts()
-                val values = response.productos
+                response.productos?.let {
+                    status.value = Resource(Status.SUCCESS, response, "Data was loaded successfully" )
 
-                val new = values?.filter {
-                    it.precioProducto.toInt() < 10000
+                    //Example to do filter by price
+//                    val productsFilter = response.productos.filter {
+//                        it.precioProducto.toInt() < 10000
+//                    }
+//                    val newResponse = ListProductsResponse(status = true, productsFilter, message = "Success")
+//                    status.value = Resource(Status.SUCCESS, newResponse, "Data was loaded successfully")
                 }
-
-//                map
-//
-//                apply
-
-//                lazy
-//
-//                apply
-//
-//                let
-//
-//                also
-//
-//                filter
-
-                values?.let {
-                    responseRetrofit = "There is no error in the query"
-                    Log.i("Message ViewModelScope:", responseRetrofit)
-                    //callback(response)
-                    status.value = ListProductsResponse(status = true,
-                        new, "successfull")
-                }
-
-                values
-
-
-
-
 
             }
             catch (e: Exception) {
-                status.value = ListProductsResponse(status = false, emptyList(), "error")
-                responseRetrofit = e.toString()
-                Log.e("Error ViewModelScope:", e.toString())
-
+                status.value = Resource(Status.ERROR, null, "Error")
             }
         }
         return status

@@ -48,4 +48,8 @@
     <string name="price_product">$ 9.999</string>
     <string name="btn_edit">Modificar</string>
     <string name="btn_delete">Eliminar</string>
+
+    <!-- Strings Response Live Data -->
+    <string name="exception_msg_connection">Lo sentimos, no hemos recibido tu petición. Revisa
+        tu conexión a Internet.</string>
 </resources>

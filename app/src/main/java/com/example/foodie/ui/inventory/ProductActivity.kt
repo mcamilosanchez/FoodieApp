@@ -1,24 +1,24 @@
 package com.example.foodie.ui.inventory
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.foodie.R
-import com.example.foodie.data.ListProductsResponse
 import com.example.foodie.data.Products
 import com.example.foodie.databinding.ActivityProductBinding
-import com.example.foodie.ui.login.LoginActivity
+import com.example.foodie.ui.CustomDialog
+import com.example.foodie.utils.Status
 
 class ProductActivity : AppCompatActivity() {
 
     private val binding: ActivityProductBinding by lazy {
         ActivityProductBinding.inflate(layoutInflater)
+    }
+
+    private val loading by lazy {
+        CustomDialog(this)
     }
 
     private val viewModel: InventoryProductsViewModel by viewModels()
@@ -31,38 +31,39 @@ class ProductActivity : AppCompatActivity() {
         iBArrowBackButton.setOnClickListener {
             finish()
         }
-
         callProductList()
     }
 
     private fun callProductList() {
         viewModel.getListProducts().observe(this, Observer {
-            when(it.message){
-                "loading" -> {
-                    Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
-                }
-                "successfull" -> {
-                    it.productos?.let {
-                        showProducts(it)
+            it?.let { resource ->
+                when (resource.status) {
+                    // Si el estado del recurso es SUCCESS
+                    Status.SUCCESS -> {
+                        resource.data?.productos?.let { it ->
+                            // Verificar si hay datos en el recurso y si hay productos en esos datos
+                            // El bloque 'let' se ejecutará si ambos condiciones son verdaderas
+                            loading.dismissLoadingDialog()
+                            showProducts(it)
+                        }?: run {
+                            // Si no hay datos o no hay productos en los datos. El operador
+                            // Elvis (?:) es un operador de Kotlin que se utiliza para proporcionar
+                            // un valor predeterminado en caso de que la expresión a la izquierda
+                            // sea nula.
+                            loading.showLoadingDialog()
+                        }
                     }
-                }
-                "error" -> {
-                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                    Status.ERROR -> {
+                        // Si el estado del recurso es ERROR
+                        loading.dismissLoadingDialog()
+                    }
+                    Status.LOADING -> {
+                        // Si el estado del recurso es LOADING
+                        loading.showLoadingDialog()
+                    }
                 }
             }
         })
-
-
-
-
-//        viewModel.getListProducts { listProductsResponse: ListProductsResponse ->
-//            if (listProductsResponse.status) {
-//                val productList = listProductsResponse.productos
-//                showProducts(productList)
-//            } else {
-//                Log.i("Product list:", listProductsResponse.message)
-//            }
-//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
