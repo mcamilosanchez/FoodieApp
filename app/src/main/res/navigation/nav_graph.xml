@@ -25,14 +25,5 @@
         android:name="com.example.foodie.ui.clientssuppliers.ClientsSuppliersFragment"
         android:label="fragment_clients_suppliers"
         tools:layout="@layout/fragment_clients_suppliers" />
-    <fragment
-        android:id="@+id/inventoryProductsFragment"
-        android:name="com.example.foodie.ui.inventory.FragmentInventoryProducts"
-        android:label="fragment_inventory_products"
-        tools:layout="@layout/fragment_inventory_products" />
-
-    <action
-        android:id="@+id/action_inventoryFragment_to_inventoryProductsFragment"
-        app:destination="@id/inventoryProductsFragment" />
 
 </navigation>
