@@ -38,4 +38,7 @@ class InventoryProductsViewModel : ViewModel(){
         }
         return status
     }
+
+
+
 }

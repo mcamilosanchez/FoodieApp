@@ -30,7 +30,6 @@ class InventoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lCProducts.setOnClickListener {
-            //findNavController().navigate(R.id.action_inventoryFragment_to_inventoryProductsFragment)
             startActivity(Intent(requireContext(), ProductActivity::class.java))
         }
 
@@ -45,8 +44,5 @@ class InventoryFragment : Fragment() {
         binding.lCStockFinished.setOnClickListener {
             Toast.makeText(activity, "click btnStockFinished", Toast.LENGTH_SHORT).show()
         }
-
     }
-
-
 }

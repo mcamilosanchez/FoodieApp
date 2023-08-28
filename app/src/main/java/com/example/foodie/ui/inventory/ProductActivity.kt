@@ -3,6 +3,7 @@ package com.example.foodie.ui.inventory
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,9 +69,20 @@ class ProductActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showProducts(productList: List<Products>) {
-        val adapter = ProductAdapter(productList)
+        val adapter = ProductAdapter(productList,
+            onClickListener = { products -> onItemSelected(products)},
+            onClickDelete = { position -> onDeleteItem(position) })
         binding.rVProducts.layoutManager = LinearLayoutManager(this)
         binding.rVProducts.adapter = adapter
         adapter.notifyDataSetChanged()
     }
+
+    private fun onDeleteItem(position: Int) {
+        Toast.makeText(this, position.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onItemSelected(products: Products) {
+        Toast.makeText(this, products.nomProducto, Toast.LENGTH_SHORT).show()
+    }
+
 }
