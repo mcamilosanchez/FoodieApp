@@ -52,4 +52,8 @@
     <!-- Strings Response Live Data -->
     <string name="exception_msg_connection">Lo sentimos, no hemos recibido tu petición. Revisa
         tu conexión a Internet.</string>
+
+    <!-- Strings Modify Product -->
+    <string name="tittle_mod_prod">Modificar producto:</string>
+    <string name="cancel">Cancelar</string>
 </resources>

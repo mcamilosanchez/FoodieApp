@@ -1,12 +1,17 @@
 package com.example.foodie.ui.inventory
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodie.R
 import com.example.foodie.data.Products
 import com.example.foodie.databinding.ActivityProductBinding
 import com.example.foodie.ui.CustomDialog
@@ -18,7 +23,7 @@ class ProductActivity : AppCompatActivity() {
         ActivityProductBinding.inflate(layoutInflater)
     }
 
-    private val loading by lazy {
+    private val customDialog by lazy {
         CustomDialog(this)
     }
 
@@ -44,23 +49,23 @@ class ProductActivity : AppCompatActivity() {
                         resource.data?.productos?.let { it ->
                             // Verificar si hay datos en el recurso y si hay productos en esos datos
                             // El bloque 'let' se ejecutará si ambos condiciones son verdaderas
-                            loading.dismissLoadingDialog()
+                            customDialog.dismissLoadingDialog()
                             showProducts(it)
                         }?: run {
                             // Si no hay datos o no hay productos en los datos. El operador
                             // Elvis (?:) es un operador de Kotlin que se utiliza para proporcionar
                             // un valor predeterminado en caso de que la expresión a la izquierda
                             // sea nula.
-                            loading.showLoadingDialog()
+                            customDialog.showLoadingDialog()
                         }
                     }
                     Status.ERROR -> {
                         // Si el estado del recurso es ERROR
-                        loading.dismissLoadingDialog()
+                        customDialog.dismissLoadingDialog()
                     }
                     Status.LOADING -> {
                         // Si el estado del recurso es LOADING
-                        loading.showLoadingDialog()
+                        customDialog.showLoadingDialog()
                     }
                 }
             }
@@ -82,11 +87,25 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(product: Products) {
+        val formModProductDialogView = LayoutInflater.from(this).
+        inflate(R.layout.dialog_form_mod_product, null)
+
+        val formModProductDialog : AlertDialog = AlertDialog.Builder(this)
+            .setView(formModProductDialogView)
+            .setCancelable(true)
+            .create()
+        formModProductDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        formModProductDialog.show()
+
+        //onItemSelectedChanged(product)
+    }
+
+    private fun onItemSelectedChanged(product: Products) {
         viewModel.modProduct(product).let { changeProductResponse ->
             when (changeProductResponse.status) {
                 Status.SUCCESS -> {
-                    loading.dismissLoadingDialog()
-                    loading.showConfirmationDialog( "Message",
+                    customDialog.dismissLoadingDialog()
+                    customDialog.showConfirmationDialog( "Message",
                         changeProductResponse.data?.message.toString(),
                         positiveButtonListener = {
                             Toast.makeText(this,
@@ -103,5 +122,4 @@ class ProductActivity : AppCompatActivity() {
             }
         }
     }
-
 }
