@@ -2,10 +2,13 @@ package com.example.foodie.ui.inventory
 
 import androidx.lifecycle.*
 import com.example.foodie.data.ListProductsResponse
+import com.example.foodie.data.Products
+import com.example.foodie.data.Response
 import com.example.foodie.network.ApiService
 import com.example.foodie.utils.Resource
 import com.example.foodie.utils.Status
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 class InventoryProductsViewModel : ViewModel(){
 
@@ -15,6 +18,12 @@ class InventoryProductsViewModel : ViewModel(){
 
     val status: MutableLiveData<Resource<ListProductsResponse>> =
         MutableLiveData(Resource.loading(data = null))
+
+    val productLiveData: MutableLiveData<Resource<Response>> =
+        MutableLiveData(Resource.loading(data = null))
+
+    private var productLiveData2: Resource<Response> = Resource(status = Status.LOADING,
+        data = null, message = null)
 
     fun getListProducts(): LiveData<Resource<ListProductsResponse>> {
         viewModelScope.launch {
@@ -39,6 +48,25 @@ class InventoryProductsViewModel : ViewModel(){
         return status
     }
 
+    fun modProduct(product: Products) : Resource<Response> {
+        viewModelScope.launch {
+            try {
+                val postProduct = ApiService.Api.retrofitService.modProduct(
+                    product.idProducto,
+                    product.nomProducto,
+                    product.descProducto,
+                    "123456")
 
-
+                postProduct?.let {
+                    productLiveData2 = Resource(Status.SUCCESS,
+                        postProduct,
+                        "Data was changed successfully" )
+                }
+            }
+            catch (e: Exception) {
+                productLiveData2 = Resource(Status.ERROR, null, "Error")
+            }
+        }
+        return productLiveData2
+    }
 }

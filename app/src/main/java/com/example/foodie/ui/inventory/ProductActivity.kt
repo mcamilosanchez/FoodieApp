@@ -70,19 +70,38 @@ class ProductActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun showProducts(productList: List<Products>) {
         val adapter = ProductAdapter(productList,
-            onClickListener = { products -> onItemSelected(products)},
-            onClickDelete = { position -> onDeleteItem(position) })
+            onClickModProduct = { products -> onItemSelected(products)},
+            onClickDeleteProduct = { position -> onDeleteItem(position) })
         binding.rVProducts.layoutManager = LinearLayoutManager(this)
         binding.rVProducts.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 
     private fun onDeleteItem(position: Int) {
-        Toast.makeText(this, position.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, (position+1).toString(), Toast.LENGTH_SHORT).show()
     }
 
-    private fun onItemSelected(products: Products) {
-        Toast.makeText(this, products.nomProducto, Toast.LENGTH_SHORT).show()
+    private fun onItemSelected(product: Products) {
+        viewModel.modProduct(product).let { changeProductResponse ->
+            when (changeProductResponse.status) {
+                Status.SUCCESS -> {
+                    loading.dismissLoadingDialog()
+                    loading.showConfirmationDialog( "Message",
+                        changeProductResponse.data?.message.toString(),
+                        positiveButtonListener = {
+                            Toast.makeText(this,
+                                "Modification: ${changeProductResponse.data?.message.toString()}",
+                                Toast.LENGTH_LONG).show()
+                        })
+                }
+                Status.LOADING -> {
+                    Toast.makeText(this, changeProductResponse.status.toString(), Toast.LENGTH_SHORT).show()
+                }
+                Status.ERROR -> {
+                    Toast.makeText(this, "Error changedProductResponse", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
 }

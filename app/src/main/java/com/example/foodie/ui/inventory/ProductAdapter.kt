@@ -14,8 +14,8 @@ import com.example.foodie.data.Products
 import com.example.foodie.databinding.ViewholderProductsBinding
 
 class ProductAdapter(private val productList: List<Products>,
-                     private val onClickListener: (Products) -> Unit,
-                     private val onClickDelete: (Int) -> Unit) :
+                     private val onClickModProduct: (Products) -> Unit,
+                     private val onClickDeleteProduct: (Int) -> Unit) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,8 +46,8 @@ class ProductAdapter(private val productList: List<Products>,
             .load(product.imageProducto)
             .into(holder.imageProduct)
 
-        holder.btnDelProduct.setOnClickListener { onClickDelete(position) }
-        holder.btnModProduct.setOnClickListener { onClickDelete(position) }
+        holder.btnDelProduct.setOnClickListener { onClickDeleteProduct(position) }
+        holder.btnModProduct.setOnClickListener { onClickModProduct(product) }
 
     }
 
