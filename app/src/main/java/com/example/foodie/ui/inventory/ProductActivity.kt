@@ -5,10 +5,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodie.R
@@ -94,8 +97,23 @@ class ProductActivity : AppCompatActivity() {
             .setView(formModProductDialogView)
             .setCancelable(true)
             .create()
+
         formModProductDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         formModProductDialog.show()
+
+        //Get referrals from EditText of dialog_form_mod_product
+        val editTextNameProdMod = formModProductDialogView
+            .findViewById<EditText>(R.id.editTextNameProdMod)
+        val editTextDescProdMod = formModProductDialogView
+            .findViewById<EditText>(R.id.editTextDescProdMod)
+        val editTextPriceProdMod = formModProductDialogView
+            .findViewById<EditText>(R.id.editTextPriceProdMod)
+        val lCBtnModProd = formModProductDialogView
+            .findViewById<ConstraintLayout>(R.id.lCBtnModProd)
+
+        editTextNameProdMod.text = Editable.Factory.getInstance().newEditable(product.nomProducto)
+        editTextDescProdMod.text = Editable.Factory.getInstance().newEditable(product.descProducto)
+        editTextPriceProdMod.text = Editable.Factory.getInstance().newEditable(product.precioProducto)
 
         //onItemSelectedChanged(product)
     }
